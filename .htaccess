@@ -1,0 +1,13 @@
+# Disable directory browsing
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Prevent direct access to sensitive folders and files
+    RewriteRule ^(app|vendor|writable|tests|builds|spark|\.env) - [F,L,NC]
+
+    # Route all requests to public/ folder
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
